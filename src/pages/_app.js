@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import { PrismicPreview } from "@prismicio/next";
 
 import { repositoryName, linkResolver } from "@/prismicio";
-import { PrismicProvider } from "@prismicio/react";
+import { PrismicLink, PrismicProvider } from "@prismicio/react";
 import Link from "next/link";
 import { Heading } from "@/components/Heading";
 

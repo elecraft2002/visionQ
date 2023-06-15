@@ -40,7 +40,7 @@ const Procedure = ({ slice }) => {
           <ul>
             {slice.items.map((item, i) => {
               return (
-                <li className={"relative mx-4 flex  gap-4 pb-8"}>
+                <li key={i} className={"relative mx-4 flex  gap-4 pb-8"}>
                   <span
                     className={`flex aspect-1 h-16 w-16 items-center justify-center rounded-full border border-slate-500 bg-glass-200 text-slate-800 after:absolute after:top-0 after:-z-10 after:h-full after:w-[${
                       slice.items.length === i + 1 ? "0px" : "1px"
