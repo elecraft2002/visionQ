@@ -84,6 +84,28 @@ interface PageDocumentData {
    *
    */
   slices: prismic.SliceZone<PageDocumentDataSlicesSlice>;
+  /**
+   * Meta Description field in *Page*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: page.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+   *
+   */
+  meta_description: prismic.RichTextField;
+  /**
+   * Meta Title field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: page.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+   *
+   */
+  meta_title: prismic.KeyTextField;
 }
 /**
  * Slice for *Page → Slice Zone*
@@ -144,6 +166,28 @@ interface RealizaceDocumentData {
    */
   date: prismic.DateField;
   /**
+   * Video field in *Realizace*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: realizace.video
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+   *
+   */
+  video: prismic.LinkField;
+  /**
+   * Short Description field in *Realizace*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: realizace.short_description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+   *
+   */
+  short_description: prismic.RichTextField;
+  /**
    * Slice Zone field in *Realizace*
    *
    * - **Field Type**: Slice Zone
@@ -192,7 +236,14 @@ interface RealizaceDocumentData {
  * Slice for *Realizace → Slice Zone*
  *
  */
-type RealizaceDocumentDataSlicesSlice = never;
+type RealizaceDocumentDataSlicesSlice =
+  | ProcedureSlice
+  | RealizaceSlice
+  | ReferenceSlice
+  | TextWithImageSlice
+  | HeroSlice
+  | TextWithFeaturesSlice
+  | ImageSlice;
 /**
  * Realizace document from Prismic
  *
@@ -303,7 +354,14 @@ interface ReferenceDocumentData {
  * Slice for *Reference → Slice Zone*
  *
  */
-type ReferenceDocumentDataSlicesSlice = never;
+type ReferenceDocumentDataSlicesSlice =
+  | ProcedureSlice
+  | RealizaceSlice
+  | HeroSlice
+  | ReferenceSlice
+  | TextWithImageSlice
+  | TextWithFeaturesSlice
+  | ImageSlice;
 /**
  * Reference document from Prismic
  *
@@ -342,12 +400,12 @@ interface SettingsDocumentData {
    * - **Documentation**: https://prismic.io/docs/core-concepts/image
    *
    */
-  logo: prismic.ImageField<never>;
+  logo: prismic.ImageField<"Icon">;
   /**
-   * Newsletter Description field in *Settings*
+   * Footer Description field in *Settings*
    *
    * - **Field Type**: Rich Text
-   * - **Placeholder**: Text above the sign up form
+   * - **Placeholder**: Text below the sign up form
    * - **API ID Path**: settings.newsletterDescription
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
@@ -355,16 +413,38 @@ interface SettingsDocumentData {
    */
   newsletterDescription: prismic.RichTextField;
   /**
-   * Newsletter Disclaimer field in *Settings*
+   * App field in *Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: App button text
+   * - **API ID Path**: settings.app
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+   *
+   */
+  app: prismic.KeyTextField;
+  /**
+   * copyright field in *Settings*
    *
    * - **Field Type**: Rich Text
-   * - **Placeholder**: Small text below sign up form
-   * - **API ID Path**: settings.newsletterDisclaimer
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.copyright
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
    *
    */
-  newsletterDisclaimer: prismic.RichTextField;
+  copyright: prismic.RichTextField;
+  /**
+   * More info field in *Settings*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: More info text
+   * - **API ID Path**: settings.more_info
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+   *
+   */
+  more_info: prismic.KeyTextField;
 }
 /**
  * Settings document from Prismic

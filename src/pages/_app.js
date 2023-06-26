@@ -9,12 +9,12 @@ import { Heading } from "@/components/Heading";
 
 const richTextComponents = {
   heading1: ({ children }) => (
-    <Heading as="h2" size="6xl" className="mb-8 last:mb-0">
+    <Heading as="h2" size="6xl" className="mb-8 text-orange-500 last:mb-0">
       {children}
     </Heading>
   ),
   heading2: ({ children }) => (
-    <Heading as="h3" size="2xl" className="mb-2 last:mb-0">
+    <Heading as="h3" size="2xl" className="mb-2 text-orange-500 last:mb-0">
       {children}
     </Heading>
   ),

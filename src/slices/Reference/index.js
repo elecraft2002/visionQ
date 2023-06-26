@@ -14,9 +14,11 @@ const Reference = ({ slice, context }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex flex-col items-center py-16"
+      className="flex flex-col items-center bg-slate-300/80 py-16"
     >
-      <PrismicRichText field={slice.primary.text} />
+      <span className="m-4 max-w-7xl text-center">
+        <PrismicRichText field={slice.primary.text} />
+      </span>
       <div className="flex w-full flex-wrap place-content-around">
         {context.reference /* realizace */
           ?.slice(0, slice.primary.visible ? slice.primary.visible : 3)

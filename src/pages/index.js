@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { PrismicLink, SliceZone } from "@prismicio/react";
+import { PrismicLink, PrismicRichText, SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
 import { getLocales } from "@/lib/getLocales";
@@ -29,11 +29,42 @@ export default function Home({
   realizace,
   reference,
 }) {
-  console.log("reference",reference);
+  console.log("reference", reference);
   return (
     <Layout locales={locales} navigation={navigation} settings={settings}>
       <Head>
-        <title>{prismic.asText(page.data.title)}</title>
+        {
+          <title>
+            {prismic.isFilled.richText(page.data.meta_title)
+              ? page.data.meta_title
+              : prismic.asText(page.data.title)}
+          </title>
+        }
+        <meta
+          name="description"
+          content={prismic.asText(page.data.meta_description)}
+        />
+        <link
+          rel="icon"
+          href={prismic.asImageSrc(settings.data.logo.Icon)}
+          sizes="any"
+        />
+        <meta
+          property="og:title"
+          content={
+            prismic.isFilled.richText(page.data.meta_title)
+              ? page.data.meta_title
+              : prismic.asText(page.data.title)
+          }
+        />
+        <meta
+          property="og:description"
+          content={prismic.asText(page.data.meta_description)}
+        />
+        <meta
+          property="og:image"
+          content={prismic.asImageSrc(settings.data.logo)}
+        />
       </Head>
       <Swiper
         // install Swiper modules
@@ -48,21 +79,24 @@ export default function Home({
         {realizace.map((project) => {
           return (
             <SwiperSlide key={project.id}>
-              <article className="grid min-h-[80vh]  grid-cols-1 grid-rows-2  bg-glass-400 sm:grid-cols-2 sm:grid-rows-1">
+              <article className="grid min-h-[80vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
                 <div className="items-middle m-x-3 flex h-full flex-col justify-evenly text-center">
-                  <h2 className="text-3xl font-bold">Název projektu</h2>
+                  <PrismicRichText field={project.data.title} />
                   <span>
-                    Krátký popis projektu, proč byste ho chtěli, a bližší
-                    informace...
+                    <PrismicRichText field={project.data.short_description} />
                   </span>
                   <div className="items-middle flex justify-evenly">
                     <PrismicNextLink document={project}>
-                      <Button type={"primary"}>VÍCE INFO</Button>
+                      <Button type={"primary"}>{settings.data.more_info}</Button>
                     </PrismicNextLink>
-                    <span className="inline-flex items-center">
-                      <a className="mr-4 underline">Video</a>
-                      <Play />
-                    </span>
+                    {prismic.isFilled.link(project.video) && (
+                      <PrismicNextLink href={project.video}>
+                        <span className="inline-flex items-center">
+                          <a className="mr-4 underline">Video</a>
+                          <Play />
+                        </span>
+                      </PrismicNextLink>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -100,7 +134,7 @@ export default function Home({
 
 export async function getStaticProps({ locale, previewData }) {
   const client = createClient({ previewData });
-
+  console.log("locale: ", locale);
   const page = await client.getByUID("page", "home", { lang: locale });
   const navigation = await client.getSingle("navigation", { lang: locale });
   const settings = await client.getSingle("settings", { lang: locale });

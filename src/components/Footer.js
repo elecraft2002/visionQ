@@ -1,128 +1,107 @@
-import { PrismicText } from "@prismicio/react";
+import { PrismicRichText, PrismicText } from "@prismicio/react";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import * as prismic from "@prismicio/client";
 
 import { Bounded } from "./Bounded";
 import { Heading } from "./Heading";
-import { PrismicRichText } from "./PrismicRichText";
 import { useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import Button from "./Button";
+import axios from "axios";
 
 function SignUpForm({ settings }) {
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBNNnVAI6mPg8SWMszs2ud5anSpDkbW69c",
-  });
-  const center = {
-    lat: 50.7639236,
-    lng: 15.0541447,
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoadingState] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [formSuccess, setFormSuccess] = useState(false);
-  const [formSuccessMessage, setFormSuccessMessage] = useState("");
-
-  const handleInput = (e) => {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value;
-
-    setFormData((prevState) => ({
-      ...prevState,
-      [fieldName]: fieldValue,
-    }));
-  };
-
-  const submitForm = (e) => {
-    // We don't want the page to refresh
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formURL = "/api/contact";
-    const data = new FormData();
-
-    // Turn our formData state into data we can use with a form submission
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-
-    // POST the data to the URL of the form
-    fetch(formURL, {
-      method: "POST",
-      body: data,
-      headers: {
-        accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
-
-        setFormSuccess(true);
-        setFormSuccessMessage(data.submission_text);
-      });
+    setLoadingState(true);
+    // console.log("Submit", { name, email, message });
+    // const res = await fetch("/api/contact")
+    try {
+      const res = await axios.post("/api/contact", { name, email, message });
+      setLoadingState(false);
+      if (res.status == 200) {
+        setName("");
+        setEmail("");
+        setError("");
+        setMessage("");
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error.response.data.error);
+      setError(error.response.data.error);
+    }
   };
 
   return (
-    <section className="flex min-h-[50] w-full flex-col items-center justify-center bg-glass-200 py-20">
+    <section className="flex min-h-[50] w-full flex-col items-center justify-center bg-slate-100/90 py-20">
       <h2>Kontaktujte nás</h2>
       <div className="grid w-screen grid-cols-1 grid-rows-2 items-center justify-center sm:grid-cols-2 sm:grid-rows-1">
         <div className="m-auto box-border h-[50vh] w-full max-w-xl p-4">
-          {isLoaded && (
-            <GoogleMap
-              mapContainerClassName="w-full h-full "
-              center={center}
-              zoom={19}
-            >
-              <Marker position={center} />
-            </GoogleMap>
-          )}
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10100.341216338342!2d15.0631439!3d50.7369067!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4709369b9c2972dd%3A0xf5d675a25a3e094d!2sVisionQ.cz%20s.r.o.!5e0!3m2!1scs!2scz!4v1687777072904!5m2!1scs!2scz"
+            width="100%"
+            height="100%"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
         <div className="box-border flex w-full flex-col items-center justify-center p-8">
-          <div class="mb-6 w-full max-w-xl">
-            <label for="default-input" class="mb-2 block text-sm font-medium">
-              Jméno
-            </label>
-            <input
-              placeholder="Jméno"
-              type="text"
-              id="default-input"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
+          <form className="w-full" onSubmit={handleSubmit}>
+            <div class="mb-6 w-full max-w-xl">
+              <label for="default-input" class="mb-2 block text-sm font-medium">
+                Jméno
+              </label>
+              <input
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                required={true}
+                maxLength={30}
+                placeholder="Jméno"
+                type="text"
+                id="default-input"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
 
-          <div class="mb-6 w-full max-w-xl">
-            <label for="default-input" class="mb-2 block text-sm font-medium">
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="Email"
-              id="default-input"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
+            <div class="mb-6 w-full max-w-xl">
+              <label for="default-input" class="mb-2 block text-sm font-medium">
+                Email
+              </label>
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                maxLength={30}
+                required={true}
+                type="email"
+                placeholder="Email"
+                id="default-input"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
 
-          <div class="mb-6 w-full max-w-xl">
-            <label for="large-input" class="mb-2 block text-sm font-medium">
-              Zpráva
-            </label>
-            <input
-              placeholder="Zpráva..."
-              type="text"
-              id="large-input"
-              class="sm:text-md block w-full rounded-lg border border-gray-300 bg-gray-50 p-4  focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-          <Button>Odeslat</Button>
+            <div class="mb-6 w-full max-w-xl">
+              <label for="large-input" class="mb-2 block text-sm font-medium">
+                Zpráva
+              </label>
+              <input
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+                maxLength={400}
+                placeholder="Zpráva..."
+                type="text"
+                id="large-input"
+                class="sm:text-md block w-full rounded-lg border border-gray-300 bg-gray-50 p-4  focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
+            <Button>
+              <input type="submit" />
+            </Button>
+          </form>
         </div>
       </div>
     </section>
@@ -144,15 +123,14 @@ export function Footer({ settings, navigation }) {
               <PrismicRichText field={settings.data.siteTitle} />
             </span>
           </a>
-          <p class="my-6 text-gray-500 dark:text-gray-400">
-            Open-source library of over 400+ web components and interactive
-            elements built for better web.
-          </p>
-          <ul class="mb-6 flex flex-wrap items-center justify-center text-gray-900 dark:text-white">
+          <span class="my-6 text-gray-500 dark:text-gray-400">
+            <PrismicRichText field={settings.data.newsletterDescription} />
+          </span>
+          <ul class="mb-6 flex flex-wrap items-center justify-center gap-5 text-gray-900 dark:text-white">
             {navigation.data?.links.map((item) => (
               <li
                 key={prismic.asText(item.label)}
-                className="mr-4 font-semibold tracking-tight hover:underline md:mr-6 "
+                className="font-semibold tracking-tight hover:underline"
               >
                 <PrismicNextLink field={item.link}>
                   <PrismicText field={item.label} />
@@ -161,8 +139,7 @@ export function Footer({ settings, navigation }) {
             ))}
           </ul>
           <span class="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
-            © 2021-2022 <a href="#" class="hover:underline"></a>. All Rights
-            Reserved.
+            <PrismicRichText field={settings.data.copyright} />
           </span>
         </div>
       </footer>

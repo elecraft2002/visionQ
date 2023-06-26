@@ -7,7 +7,14 @@ import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import { Layout } from "@/components/Layout";
 
-export default function Page({ page, navigation, settings, locales }) {
+export default function Page({
+  realizace,
+  reference,
+  page,
+  navigation,
+  settings,
+  locales,
+}) {
   return (
     <Layout locales={locales} navigation={navigation} settings={settings}>
       <Head>
@@ -16,7 +23,11 @@ export default function Page({ page, navigation, settings, locales }) {
           {prismic.asText(settings.data.siteTitle)}
         </title>
       </Head>
-      <SliceZone slices={page.data.slices} components={components} />
+      <SliceZone 
+        slices={page.data.slices}
+        components={components}
+        context={{ realizace, reference }}
+      />
     </Layout>
   );
 }
@@ -29,14 +40,11 @@ export async function getStaticProps({ params, locale, previewData }) {
   const settings = await client.getSingle("settings", { lang: locale });
 
   const locales = await getLocales(page, client);
+  const realizace = await client.getAllByType("realizace", { lang: locale });
+  const reference = await client.getAllByType("reference", { lang: locale });
 
   return {
-    props: {
-      page,
-      navigation,
-      settings,
-      locales,
-    },
+    props: { realizace, reference, page, navigation, settings, locales },
   };
 }
 

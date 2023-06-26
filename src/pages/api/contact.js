@@ -1,5 +1,5 @@
-import { render } from "@react-email/render";
-import WelcomeTemplate from "../../emails/WelcomeEmail";
+// import { render } from "@react-email/render";
+// import WelcomeTemplate from "../../emails/WelcomeEmail";
 import { sendEmail } from "../../lib/email";
 import nodemailer from "nodemailer";
 
@@ -21,6 +21,7 @@ export default async function handler(req, res) {
       error: "One or more of the following not found: name, email, message",
     });
   }
+  
   try {
     await sendEmail({
       // to: process.env.COMPANY_EMAIL,
