@@ -10,4 +10,5 @@ export const components = {
   reference: dynamic(() => import("./Reference")),
   text_with_features: dynamic(() => import("./TextWithFeatures")),
   text_with_image: dynamic(() => import("./TextWithImage")),
+  text_with_images: dynamic(() => import("./TextWithImages")),
 };

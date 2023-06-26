@@ -1102,6 +1102,98 @@ export type TextWithImageSlice = prismic.SharedSlice<
   "text_with_image",
   TextWithImageSliceVariation
 >;
+/**
+ * Primary content in TextWithImages → Primary
+ *
+ */
+interface TextWithImagesSliceDefaultPrimary {
+  /**
+   * Text field in *TextWithImages → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Text above images
+   * - **API ID Path**: text_with_images.primary.text
+   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+   *
+   */
+  text: prismic.RichTextField;
+}
+/**
+ * Item in TextWithImages → Items
+ *
+ */
+export interface TextWithImagesSliceDefaultItem {
+  /**
+   * Image field in *TextWithImages → Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_with_images.items[].image
+   * - **Documentation**: https://prismic.io/docs/core-concepts/image
+   *
+   */
+  image: prismic.ImageField<never>;
+  /**
+   * Text field in *TextWithImages → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_with_images.items[].text
+   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+   *
+   */
+  text: prismic.RichTextField;
+  /**
+   * Link field in *TextWithImages → Items*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_with_images.items[].link
+   * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+   *
+   */
+  link: prismic.LinkField;
+  /**
+   * Button text field in *TextWithImages → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_with_images.items[].button_text
+   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+   *
+   */
+  button_text: prismic.KeyTextField;
+}
+/**
+ * Default variation for TextWithImages Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type TextWithImagesSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TextWithImagesSliceDefaultPrimary>,
+  Simplify<TextWithImagesSliceDefaultItem>
+>;
+/**
+ * Slice variation for *TextWithImages*
+ *
+ */
+type TextWithImagesSliceVariation = TextWithImagesSliceDefault;
+/**
+ * TextWithImages Shared Slice
+ *
+ * - **API ID**: `text_with_images`
+ * - **Description**: `TextWithImages`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type TextWithImagesSlice = prismic.SharedSlice<
+  "text_with_images",
+  TextWithImagesSliceVariation
+>;
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -1163,6 +1255,11 @@ declare module "@prismicio/client" {
       TextWithImageSliceDefault,
       TextWithImageSliceVariation,
       TextWithImageSlice,
+      TextWithImagesSliceDefaultPrimary,
+      TextWithImagesSliceDefaultItem,
+      TextWithImagesSliceDefault,
+      TextWithImagesSliceVariation,
+      TextWithImagesSlice,
     };
   }
 }
