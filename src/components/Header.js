@@ -4,6 +4,7 @@ import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 
 import { Bounded } from "./Bounded";
 import { useState } from "react";
+import Button from "./Button";
 
 const localeLabels = {
   "en-us": "EN",
@@ -14,7 +15,7 @@ const localeLabels = {
 export function Header({ locales = [], navigation, settings }) {
   const [isOpen, setOpenState] = useState(false);
   return (
-    <nav class="fixed left-0 top-0 z-50 w-full border-b border-gray-200">
+    <nav class="fixed left-0 top-0 z-50 w-full border-b border-gray-200 bg-glass-600 backdrop-blur-3xl">
       <div
         onClick={() => {
           setOpenState(!isOpen);
@@ -23,19 +24,16 @@ export function Header({ locales = [], navigation, settings }) {
           !isOpen && "hidden"
         } absolute -z-10 h-screen w-screen backdrop-blur-md md:hidden`}
       />
-      <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between bg-glass-600 p-4 backdrop-blur-3xl">
+      <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between  p-4">
         <PrismicNextLink href="/">
           {prismic.isFilled.image(settings.data.logo) && (
             <PrismicNextImage field={settings.data.logo} />
           )}
         </PrismicNextLink>
         <div class="flex md:order-2">
-          <button
-            type="button"
-            class="mr-3 rounded-lg bg-orange-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-orange-800 focus:outline-none focus:ring-4 focus:ring-orange-300 md:mr-0"
-          >
-            Get started
-          </button>
+          <PrismicNextLink target="_blank" href="https://app.visionq.cz/">
+            <Button>{settings.data.app}</Button>
+          </PrismicNextLink>
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"
