@@ -8,24 +8,24 @@ import { components } from "@/slices";
 import { Layout } from "@/components/Layout";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 
-export default function realizace({
-  realizace,
+export default function reference({
+  reference,
   navigation,
   settings,
   locales,
 }) {
-  console.log(realizace);
+  console.log(reference);
   return (
     <Layout locales={locales} navigation={navigation} settings={settings}>
       <Head>
         <title>
-          {prismic.asText(realizace.data.title)} |{" "}
+          {prismic.asText(reference.data.title)} |{" "}
           {prismic.asText(settings.data.siteTitle)}
         </title>
 
         <meta
           name="description"
-          content={prismic.asText(realizace.data.meta_description)}
+          content={prismic.asText(reference.data.meta_description)}
         />
         <link
           rel="icon"
@@ -35,31 +35,29 @@ export default function realizace({
         <meta
           property="og:title"
           content={
-            prismic.asText(realizace.data.title) +
+            prismic.asText(reference.data.title) +
             "|" +
             prismic.asText(settings.data.siteTitle)
           }
         />
         <meta
           property="og:description"
-          content={prismic.asText(realizace.data.meta_description)}
+          content={prismic.asText(reference.data.meta_description)}
         />
         <meta
           property="og:image"
-          content={prismic.asImageSrc(realizace.data.image)}
+          content={prismic.asImageSrc(reference.data.image)}
         />
       </Head>
       <div className="grid min-h-[80vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
         <div className="items-middle m-x-3 flex h-full flex-col justify-evenly text-center">
-          <PrismicRichText field={realizace.data.title} />
-          {prismic.isFilled.richText(realizace.data.short_description) && (
-            <span>
-              <PrismicRichText field={realizace.data.short_description} />
-            </span>
-          )}
-          {prismic.isFilled.link(realizace.data.video) && (
+          <PrismicRichText field={reference.data.title} />
+          {prismic.isFilled.richText(reference.data.short_description) && <span>
+            <PrismicRichText field={reference.data.short_description} />
+          </span>}
+          {prismic.isFilled.link(reference.data.video) && (
             <div className="items-middle flex justify-evenly">
-              <PrismicNextLink href={realizace.data.video}>
+              <PrismicNextLink href={reference.data.video}>
                 <span className="inline-flex items-center">
                   <a className="mr-4 underline">Video</a>
                   <Play />
@@ -71,13 +69,13 @@ export default function realizace({
         <div>
           <figure className="h-full">
             <PrismicNextImage
-              className="h-full w-full object-cover"
-              field={realizace.data.image.Big}
+              className="h-full w-full object-contain"
+              field={reference.data.image.Big}
             />
           </figure>
         </div>
       </div>
-      <SliceZone slices={realizace.data.slices} components={components} />
+      <SliceZone slices={reference.data.slices} components={components} />
     </Layout>
   );
 }
@@ -85,17 +83,17 @@ export default function realizace({
 export async function getStaticProps({ params, locale, previewData }) {
   const client = createClient({ previewData });
 
-  const realizace = await client.getByUID("realizace", params.uid, {
+  const reference = await client.getByUID("reference", params.uid, {
     lang: locale,
   });
   const navigation = await client.getSingle("navigation", { lang: locale });
   const settings = await client.getSingle("settings", { lang: locale });
 
-  const locales = await getLocales(realizace, client);
+  const locales = await getLocales(reference, client);
 
   return {
     props: {
-      realizace,
+      reference,
       navigation,
       settings,
       locales,
@@ -106,13 +104,13 @@ export async function getStaticProps({ params, locale, previewData }) {
 export async function getStaticPaths() {
   const client = createClient();
 
-  const realizaces = await client.getAllByType("realizace", { lang: "*" });
+  const references = await client.getAllByType("reference", { lang: "*" });
 
   return {
-    paths: realizaces.map((realizace) => {
+    paths: references.map((reference) => {
       return {
-        params: { uid: realizace.uid },
-        locale: realizace.lang,
+        params: { uid: reference.uid },
+        locale: reference.lang,
       };
     }),
     fallback: false,

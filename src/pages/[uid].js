@@ -22,8 +22,33 @@ export default function Page({
           {prismic.asText(page.data.title)} |{" "}
           {prismic.asText(settings.data.siteTitle)}
         </title>
+        <meta
+          name="description"
+          content={prismic.asText(page.data.meta_description)}
+        />
+        <link
+          rel="icon"
+          href={prismic.asImageSrc(settings.data.logo.Icon)}
+          sizes="any"
+        />
+        <meta
+          property="og:title"
+          content={
+            prismic.isFilled.richText(page.data.meta_title)
+              ? page.data.meta_title
+              : prismic.asText(page.data.title)
+          }
+        />
+        <meta
+          property="og:description"
+          content={prismic.asText(page.data.meta_description)}
+        />
+        <meta
+          property="og:image"
+          content={prismic.asImageSrc(settings.data.logo)}
+        />
       </Head>
-      <SliceZone 
+      <SliceZone
         slices={page.data.slices}
         components={components}
         context={{ realizace, reference }}

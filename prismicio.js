@@ -29,6 +29,10 @@ const routes = [
     type: "realizace",
     path: "realizace/:uid",
   },
+  {
+    type: "reference",
+    path: "reference/:uid",
+  },
 ];
 
 /**

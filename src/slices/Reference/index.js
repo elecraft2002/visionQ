@@ -14,7 +14,7 @@ const Reference = ({ slice, context }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex flex-col items-center bg-slate-300/80 py-16"
+      className="flex flex-col items-center bg-slate-100/70 py-16"
     >
       <span className="m-4 max-w-7xl text-center">
         <PrismicRichText field={slice.primary.text} />
@@ -28,7 +28,7 @@ const Reference = ({ slice, context }) => {
       </div>
       {prismicH.asText(slice.primary.button_text) && (
         <PrismicNextLink document={slice.primary.button_link}>
-          <Button type={"secondary"}>
+          <Button type={"primary"}>
             <PrismicRichText field={slice.primary.button_text} />
           </Button>
         </PrismicNextLink>
