@@ -51,7 +51,8 @@
             "reference": { "type": "SharedSlice" },
             "text_with_image": { "type": "SharedSlice" },
             "text_with_features": { "type": "SharedSlice" },
-            "image": { "type": "SharedSlice" }
+            "image": { "type": "SharedSlice" },
+            "text_with_images": { "type": "SharedSlice" }
           }
         }
       }

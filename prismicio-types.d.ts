@@ -118,7 +118,8 @@ type PageDocumentDataSlicesSlice =
   | TextWithImageSlice
   | RealizaceSlice
   | ReferenceSlice
-  | ProcedureSlice;
+  | ProcedureSlice
+  | TextWithImagesSlice;
 /**
  * Page document from Prismic
  *
@@ -243,7 +244,8 @@ type RealizaceDocumentDataSlicesSlice =
   | TextWithImageSlice
   | HeroSlice
   | TextWithFeaturesSlice
-  | ImageSlice;
+  | ImageSlice
+  | TextWithImagesSlice;
 /**
  * Realizace document from Prismic
  *
@@ -361,7 +363,8 @@ type ReferenceDocumentDataSlicesSlice =
   | ReferenceSlice
   | TextWithImageSlice
   | TextWithFeaturesSlice
-  | ImageSlice;
+  | ImageSlice
+  | TextWithImagesSlice;
 /**
  * Reference document from Prismic
  *

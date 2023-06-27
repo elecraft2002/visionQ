@@ -30,7 +30,8 @@
             "text_with_image": { "type": "SharedSlice" },
             "realizace": { "type": "SharedSlice" },
             "reference": { "type": "SharedSlice" },
-            "procedure": { "type": "SharedSlice" }
+            "procedure": { "type": "SharedSlice" },
+            "text_with_images": { "type": "SharedSlice" }
           }
         }
       }
