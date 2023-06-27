@@ -24,7 +24,7 @@ const Slider = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="bg-slate-100/70 py-20 flex flex-col justify-center items-center"
     >
-      <div className="box-border max-w-7xl bg-slate-200/50 p-4 rounded-md border w-full">
+      <div className="box-border max-w-7xl bg-slate-400/50 p-4 rounded-md border w-full">
         <Swiper
           // install Swiper modules
           modules={[A11y, Autoplay]}
