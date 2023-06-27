@@ -7,6 +7,7 @@ import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import { Layout } from "@/components/Layout";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
+import Play from "@/assets/svg/Play";
 
 export default function realizace({
   realizace,
