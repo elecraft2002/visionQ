@@ -79,7 +79,7 @@ export default function Home({
         {realizace.map((project) => {
           return (
             <SwiperSlide key={project.id}>
-              <article className="grid min-h-[80vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
+              <article className="grid h-[50vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
                 <div className="items-middle m-x-3 flex h-full flex-col justify-evenly text-center">
                   <PrismicRichText field={project.data.title} />
                   <span>

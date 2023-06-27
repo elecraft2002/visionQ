@@ -31,7 +31,8 @@
             "realizace": { "type": "SharedSlice" },
             "reference": { "type": "SharedSlice" },
             "procedure": { "type": "SharedSlice" },
-            "text_with_images": { "type": "SharedSlice" }
+            "text_with_images": { "type": "SharedSlice" },
+            "slider": { "type": "SharedSlice" }
           }
         }
       }

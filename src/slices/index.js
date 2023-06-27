@@ -8,6 +8,7 @@ export const components = {
   procedure: dynamic(() => import("./Procedure")),
   realizace: dynamic(() => import("./Realizace")),
   reference: dynamic(() => import("./Reference")),
+  slider: dynamic(() => import("./Slider")),
   text_with_features: dynamic(() => import("./TextWithFeatures")),
   text_with_image: dynamic(() => import("./TextWithImage")),
   text_with_images: dynamic(() => import("./TextWithImages")),

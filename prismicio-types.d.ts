@@ -119,7 +119,8 @@ type PageDocumentDataSlicesSlice =
   | RealizaceSlice
   | ReferenceSlice
   | ProcedureSlice
-  | TextWithImagesSlice;
+  | TextWithImagesSlice
+  | SliderSlice;
 /**
  * Page document from Prismic
  *
@@ -245,7 +246,8 @@ type RealizaceDocumentDataSlicesSlice =
   | HeroSlice
   | TextWithFeaturesSlice
   | ImageSlice
-  | TextWithImagesSlice;
+  | TextWithImagesSlice
+  | SliderSlice;
 /**
  * Realizace document from Prismic
  *
@@ -364,7 +366,8 @@ type ReferenceDocumentDataSlicesSlice =
   | TextWithImageSlice
   | TextWithFeaturesSlice
   | ImageSlice
-  | TextWithImagesSlice;
+  | TextWithImagesSlice
+  | SliderSlice;
 /**
  * Reference document from Prismic
  *
@@ -978,6 +981,49 @@ export type ReferenceSlice = prismic.SharedSlice<
   ReferenceSliceVariation
 >;
 /**
+ * Item in Slider → Items
+ *
+ */
+export interface SliderSliceDefaultItem {
+  /**
+   * Image field in *Slider → Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slider.items[].image
+   * - **Documentation**: https://prismic.io/docs/core-concepts/image
+   *
+   */
+  image: prismic.ImageField<"Small">;
+}
+/**
+ * Default variation for Slider Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type SliderSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  Simplify<SliderSliceDefaultItem>
+>;
+/**
+ * Slice variation for *Slider*
+ *
+ */
+type SliderSliceVariation = SliderSliceDefault;
+/**
+ * Slider Shared Slice
+ *
+ * - **API ID**: `slider`
+ * - **Description**: `Slider`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type SliderSlice = prismic.SharedSlice<"slider", SliderSliceVariation>;
+/**
  * Primary content in TextWithFeatures → Primary
  *
  */
@@ -1249,6 +1295,10 @@ declare module "@prismicio/client" {
       ReferenceSliceDefault,
       ReferenceSliceVariation,
       ReferenceSlice,
+      SliderSliceDefaultItem,
+      SliderSliceDefault,
+      SliderSliceVariation,
+      SliderSlice,
       TextWithFeaturesSliceDefaultPrimary,
       TextWithFeaturesSliceDefaultItem,
       TextWithFeaturesSliceDefault,
