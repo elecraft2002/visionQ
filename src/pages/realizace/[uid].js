@@ -51,7 +51,7 @@ export default function realizace({
         />
       </Head>
       <div className="grid min-h-[80vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
-        <div className="items-middle m-x-3 flex h-full flex-col justify-evenly text-center">
+        <div className="items-middle m-x-3 flex h-full flex-col justify-center gap-4 text-center">
           <PrismicRichText field={realizace.data.title} />
           {prismic.isFilled.richText(realizace.data.short_description) && (
             <span>
@@ -72,7 +72,7 @@ export default function realizace({
         <div>
           <figure className="h-full">
             <PrismicNextImage
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
               field={realizace.data.image.Big}
             />
           </figure>

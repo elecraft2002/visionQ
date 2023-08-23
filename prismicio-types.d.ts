@@ -18,6 +18,28 @@ interface NavigationDocumentData {
    *
    */
   links: prismic.GroupField<Simplify<NavigationDocumentDataLinksItem>>;
+  /**
+   * Button Text field in *Navigation*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Aplikace....
+   * - **API ID Path**: navigation.button_text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+   *
+   */
+  button_text: prismic.RichTextField;
+  /**
+   * Button Link field in *Navigation*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navigation.button_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+   *
+   */
+  button_link: prismic.LinkField;
 }
 /**
  * Item in Navigation → Links
@@ -418,17 +440,6 @@ interface SettingsDocumentData {
    *
    */
   newsletterDescription: prismic.RichTextField;
-  /**
-   * App field in *Settings*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: App button text
-   * - **API ID Path**: settings.app
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  app: prismic.KeyTextField;
   /**
    * copyright field in *Settings*
    *

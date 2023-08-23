@@ -1,5 +1,5 @@
 import * as prismic from "@prismicio/client";
-import { PrismicText } from "@prismicio/react";
+import { PrismicRichText, PrismicText } from "@prismicio/react";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 
 import { Bounded } from "./Bounded";
@@ -41,8 +41,10 @@ export function Header({ locales = [], navigation, settings }) {
           )}
         </PrismicNextLink>
         <div class="flex md:order-2">
-          <PrismicNextLink target="_blank" href="https://app.visionq.cz/">
-            <Button>{settings.data.app}</Button>
+          <PrismicNextLink field={navigation.data.button_link}>
+            <Button>
+              <PrismicRichText field={navigation.data.button_text} />
+            </Button>
           </PrismicNextLink>
           <button
             data-collapse-toggle="navbar-sticky"

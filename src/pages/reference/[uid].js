@@ -51,11 +51,13 @@ export default function reference({
         />
       </Head>
       <div className="grid min-h-[80vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
-        <div className="items-middle m-x-3 flex h-full flex-col justify-evenly text-center">
+        <div className="items-middle m-x-3 flex h-full flex-col justify-center gap-4 text-center">
           <PrismicRichText field={reference.data.title} />
-          {prismic.isFilled.richText(reference.data.short_description) && <span>
-            <PrismicRichText field={reference.data.short_description} />
-          </span>}
+          {prismic.isFilled.richText(reference.data.short_description) && (
+            <span>
+              <PrismicRichText field={reference.data.short_description} />
+            </span>
+          )}
           {prismic.isFilled.link(reference.data.video) && (
             <div className="items-middle flex justify-evenly">
               <PrismicNextLink href={reference.data.video}>

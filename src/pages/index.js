@@ -71,6 +71,8 @@ export default function Home({
         modules={[Navigation, Pagination, A11y, Autoplay]}
         spaceBetween={50}
         slidesPerView={1}
+        speed={2000}
+        
         navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
@@ -80,7 +82,7 @@ export default function Home({
           return (
             <SwiperSlide key={project.id}>
               <article className="grid h-[50vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
-                <div className="items-middle m-x-3 flex h-full flex-col justify-evenly text-center">
+                <div className="items-middle m-x-3 flex h-full flex-col justify-center gap-4 text-center">
                   <PrismicRichText field={project.data.title} />
                   <span>
                     <PrismicRichText field={project.data.short_description} />
@@ -104,7 +106,7 @@ export default function Home({
                 <div>
                   <figure className="h-full">
                     <PrismicNextImage
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-contain"
                       field={project.data.image.Big}
                     />
                   </figure>
