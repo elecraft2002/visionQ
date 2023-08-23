@@ -6,6 +6,13 @@ import { Bounded } from "./Bounded";
 import { useState } from "react";
 import Button from "./Button";
 import { useRouter } from "next/router";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+
+const FlagIcon = ({ lang }) => {
+  const code = lang.substring(3).toLowerCase();
+
+  return <span className={`fi fi-${code}`} />;
+};
 
 const localeLabels = {
   "en-us": "EN",
@@ -16,6 +23,7 @@ const localeLabels = {
 export function Header({ locales = [], navigation, settings }) {
   const [isOpen, setOpenState] = useState(false);
   const router = useRouter();
+  console.log(navigation);
   return (
     <nav class="fixed left-0 top-0 z-50 w-full border-b border-gray-200 bg-glass-600 backdrop-blur-3xl">
       <div
@@ -76,7 +84,11 @@ export function Header({ locales = [], navigation, settings }) {
                   className="font-semibold tracking-tight text-slate-800"
                 >
                   <PrismicNextLink
-                    className={`block rounded py-2 pl-3 pr-4 ${router.asPath===prismic.asLink(item.link)?"text-orange-700":"text-gray-900"} hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-orange-500`}
+                    className={`block rounded py-2 pl-3 pr-4 ${
+                      router.asPath === prismic.asLink(item.link)
+                        ? "text-orange-700"
+                        : "text-gray-900"
+                    } hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-orange-500`}
                     field={item.link}
                   >
                     <PrismicText field={item.label} />
@@ -86,64 +98,27 @@ export function Header({ locales = [], navigation, settings }) {
             })}
           </ul>
           <div className="flex flex-wrap gap-3">
-            <span aria-hidden={true}>🌐</span>
-            <ul className="flex flex-wrap gap-3">
-              {locales.map((locale) => (
-                <li key={locale.lang} className="first:font-semibold">
-                  <PrismicNextLink
-                    href={locale.url}
-                    locale={locale.lang}
-                    aria-label={`Change language to ${locale.lang_name}`}
-                  >
-                    {localeLabels[locale.lang] || locale.lang}
-                  </PrismicNextLink>
-                </li>
-              ))}
+            <ul className="ml-8 flex flex-wrap gap-3">
+              {locales.map((locale) => {
+                if (locale.lang === settings.lang) return null;
+                return (
+                  <li key={locale.lang} className="first:font-semibold">
+                    <PrismicNextLink
+                      href={locale.url}
+                      locale={locale.lang}
+                      aria-label={`Change language to ${locale.lang_name}`}
+                    >
+                      <span className="sr-only">{locale.lang}</span>
+                      <FlagIcon lang={locale.lang} />
+                      {/* {localeLabels[locale.lang] || locale.lang} */}
+                    </PrismicNextLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
       </div>
     </nav>
-  );
-  return (
-    <Bounded as="header" yPadding="sm">
-      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 leading-none">
-        <PrismicNextLink href="/">
-          {prismic.isFilled.image(settings.data.logo) && (
-            <PrismicNextImage field={settings.data.logo} />
-          )}
-        </PrismicNextLink>
-        <nav className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-10">
-          <ul className="flex flex-wrap gap-6 md:gap-10">
-            {navigation.data?.links.map((item) => (
-              <li
-                key={prismic.asText(item.label)}
-                className="font-semibold tracking-tight text-slate-800"
-              >
-                <PrismicNextLink field={item.link}>
-                  <PrismicText field={item.label} />
-                </PrismicNextLink>
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-wrap gap-3">
-            <span aria-hidden={true}>🌐</span>
-            <ul className="flex flex-wrap gap-3">
-              {locales.map((locale) => (
-                <li key={locale.lang} className="first:font-semibold">
-                  <PrismicNextLink
-                    href={locale.url}
-                    locale={locale.lang}
-                    aria-label={`Change language to ${locale.lang_name}`}
-                  >
-                    {localeLabels[locale.lang] || locale.lang}
-                  </PrismicNextLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </Bounded>
   );
 }

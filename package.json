@@ -22,6 +22,7 @@
     "@react-spring/web": "^9.7.2",
     "axios": "^1.4.0",
     "clsx": "^1.2.1",
+    "flag-icons": "^6.11.0",
     "next": "^13.4.4",
     "nodemailer": "^6.9.3",
     "react": "^18.2.0",

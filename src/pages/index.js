@@ -87,7 +87,9 @@ export default function Home({
                   </span>
                   <div className="items-middle flex justify-evenly">
                     <PrismicNextLink document={project}>
-                      <Button type={"primary"}>{settings.data.more_info}</Button>
+                      <Button type={"primary"}>
+                        {settings.data.more_info}
+                      </Button>
                     </PrismicNextLink>
                     {prismic.isFilled.link(project.video) && (
                       <PrismicNextLink href={project.video}>
@@ -142,7 +144,7 @@ export async function getStaticProps({ locale, previewData }) {
   const reference = await client.getAllByType("reference", { lang: locale });
 
   const locales = await getLocales(page, client);
-
+  // console.log("locales", locales);
   return {
     props: {
       page,

@@ -7,18 +7,17 @@ import Button from "./Button";
 import Arrow from "@/assets/svg/Arrow";
 
 export default function Article({ data, type = 0 }) {
-  console.log(data.data.date);
   if (type === 0)
     return (
       <article key={data.id} className="m-4 flex w-full max-w-md flex-col ">
         <figure className="aspect-[4/3] overflow-hidden">
           <PrismicNextImage
-            className="h-full w-full object-cover rounded-sm"
+            className="h-full w-full rounded-md object-contain"
             field={data.data.image.Small}
           />
         </figure>
         <span className="my-5">
-          <time>{parseDate(data.data.date)}</time>
+          <time>{data.data.date && parseDate(data.data.date)}</time>
         </span>
         <PrismicRichText field={data.data.title} />
         <span className="my-5">
@@ -32,7 +31,7 @@ export default function Article({ data, type = 0 }) {
     return (
       <article
         key={data.id}
-        className="m-4 box-border flex w-full max-w-md flex-col border p-4 rounded-lg bg-white"
+        className="m-4 box-border flex w-full max-w-md flex-col rounded-lg border bg-white p-4"
       >
         <figure className="aspect-4 overflow-hidden">
           <PrismicNextImage
@@ -41,7 +40,7 @@ export default function Article({ data, type = 0 }) {
           />
         </figure>
         <span className="my-5">
-          <time>{parseDate(data.data.date)}</time>
+          <time>{data.data.date&&parseDate(data.data.date)}</time>
         </span>
         <PrismicRichText field={data.data.short_description} />
         <span className="my-5">
