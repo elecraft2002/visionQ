@@ -9,13 +9,25 @@ import { Layout } from "@/components/Layout";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import Play from "@/assets/svg/Play";
 
+import LightGallery from "lightgallery/react";
+
+// import styles
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+
+// If you want you can use SCSS instead of css
+import "lightgallery/scss/lightgallery.scss";
+import "lightgallery/scss/lg-zoom.scss";
+
+// import plugins if you need
+import lgZoom from "lightgallery/plugins/zoom";
 export default function reference({
   reference,
   navigation,
   settings,
   locales,
 }) {
-  console.log(reference);
   return (
     <Layout locales={locales} navigation={navigation} settings={settings}>
       <Head>
@@ -26,7 +38,7 @@ export default function reference({
 
         <meta
           name="description"
-          content={prismic.asText(reference.data.meta_description)}
+          content={prismic.asText(reference.data.meta_description)||prismic.asText(reference.data.short_description)}
         />
         <link
           rel="icon"
@@ -43,14 +55,14 @@ export default function reference({
         />
         <meta
           property="og:description"
-          content={prismic.asText(reference.data.meta_description)}
+          content={prismic.asText(reference.data.meta_description)||prismic.asText(reference.data.short_description)}
         />
         <meta
           property="og:image"
           content={prismic.asImageSrc(reference.data.image)}
         />
       </Head>
-      <div className="grid min-h-[80vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
+      <div className="grid min-h-[40vh]  grid-cols-1 grid-rows-2 gap-4  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
         <div className="items-middle m-x-3 flex h-full flex-col justify-center gap-4 text-center">
           <PrismicRichText field={reference.data.title} />
           {prismic.isFilled.richText(reference.data.short_description) && (
@@ -70,12 +82,16 @@ export default function reference({
           )}
         </div>
         <div>
-          <figure className="h-full">
-            <PrismicNextImage
-              className="h-full w-full object-contain"
-              field={reference.data.image.Big}
-            />
-          </figure>
+        <LightGallery plugins={[lgZoom]}>
+            <a href={prismic.asImageSrc(reference.data.image)}>
+              <figure className="h-full">
+                <PrismicNextImage
+                  className="h-full w-full object-contain"
+                  field={reference.data.image.Big}
+                />
+              </figure>
+            </a>
+          </LightGallery>
         </div>
       </div>
       <SliceZone slices={reference.data.slices} components={components} />

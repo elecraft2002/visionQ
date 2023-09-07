@@ -52,6 +52,27 @@
 						}
 					]
 				]
+			},
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": [
+					[
+						"text",
+						{
+							"__TYPE__": "StructuredTextContent",
+							"value": [
+								{
+									"type": "paragraph",
+									"content": {
+										"text": "Ex velit esse ad ut sit veniam aliquip aliqua amet consectetur fugiat consequat ad. Qui occaecat aliquip labore incididunt. Est labore velit fugiat labore ipsum pariatur dolore labore eu.",
+										"spans": []
+									},
+									"direction": "ltr"
+								}
+							]
+						}
+					]
+				]
 			}
 		]
 	},
@@ -115,6 +136,48 @@
 									"content": {
 										"text": "Incididunt nulla amet quis sit incididunt do nisi mollit velit in cupidatat aliqua exercitation laboris. Elit ea velit laboris occaecat sint."
 									}
+								}
+							]
+						}
+					]
+				]
+			},
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": [
+					[
+						"text",
+						{
+							"__TYPE__": "StructuredTextContent",
+							"value": [
+								{
+									"type": "paragraph",
+									"content": {
+										"text": "Dolor dolore voluptate aute nisi aliquip consectetur anim deserunt amet qui incididunt. Enim ea deserunt cillum ullamco mollit voluptate eu in ipsum Lorem dolore labore.",
+										"spans": []
+									},
+									"direction": "ltr"
+								}
+							]
+						}
+					]
+				]
+			},
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": [
+					[
+						"text",
+						{
+							"__TYPE__": "StructuredTextContent",
+							"value": [
+								{
+									"type": "paragraph",
+									"content": {
+										"text": "Dolor dolore voluptate aute nisi aliquip consectetur anim deserunt amet qui incididunt. Enim ea deserunt cillum ullamco mollit voluptate eu in ipsum Lorem dolore labore.",
+										"spans": []
+									},
+									"direction": "ltr"
 								}
 							]
 						}

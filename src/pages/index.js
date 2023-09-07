@@ -21,6 +21,20 @@ import Play from "@/assets/svg/Play";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import Article from "@/components/Article";
 
+import LightGallery from "lightgallery/react";
+
+// import styles
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+
+// If you want you can use SCSS instead of css
+import "lightgallery/scss/lightgallery.scss";
+import "lightgallery/scss/lg-zoom.scss";
+
+// import plugins if you need
+import lgZoom from "lightgallery/plugins/zoom";
+
 export default function Home({
   page,
   navigation,
@@ -72,7 +86,7 @@ export default function Home({
         spaceBetween={50}
         slidesPerView={1}
         speed={2000}
-        
+        loop
         navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
@@ -81,11 +95,13 @@ export default function Home({
         {realizace.map((project) => {
           return (
             <SwiperSlide key={project.id}>
-              <article className="grid h-[50vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
+              <article className="grid h-[35vh]  grid-cols-1 grid-rows-2  bg-slate-200/80 sm:grid-cols-2 sm:grid-rows-1">
                 <div className="items-middle m-x-3 flex h-full flex-col justify-center gap-4 text-center">
                   <PrismicRichText field={project.data.title} />
                   <span>
-                    <PrismicRichText field={project.data.short_description} />
+                    <PrismicRichText
+                      field={project.data.realizace_slider_description}
+                    />
                   </span>
                   <div className="items-middle flex justify-evenly">
                     <PrismicNextLink document={project}>
@@ -103,14 +119,17 @@ export default function Home({
                     )}
                   </div>
                 </div>
-                <div>
-                  <figure className="h-full">
-                    <PrismicNextImage
-                      className="h-full w-full object-contain"
-                      field={project.data.image.Big}
-                    />
-                  </figure>
-                </div>
+                <LightGallery plugins={[lgZoom]}>
+                  <a href={prismic.asImageSrc(project.data.image)}>
+                    <figure className="h-full">
+                      <PrismicNextImage
+                        data-src={project.data.image.Big}
+                        className="h-full w-full object-contain"
+                        field={project.data.image.Big}
+                      />
+                    </figure>
+                  </a>
+                </LightGallery>
               </article>
             </SwiperSlide>
           );

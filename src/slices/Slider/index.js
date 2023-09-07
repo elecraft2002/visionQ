@@ -32,7 +32,8 @@ const Slider = ({ slice }) => {
           slidesPerView={maxSlidesPerView}
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          speed={2000}
+        loop
+        speed={2000}
           autoplay={true}
         >
           {slice.items.map((item, index) => {
