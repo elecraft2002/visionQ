@@ -22,9 +22,9 @@ const Slider = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="bg-slate-100/70 py-20 flex flex-col justify-center items-center"
+      className="flex flex-col items-center justify-center bg-slate-100/70 py-20"
     >
-      <div className="box-border max-w-7xl bg-slate-400/50 p-4 rounded-md border w-full">
+      <div className="box-border w-full max-w-7xl rounded-md border bg-slate-400/50 p-4">
         <Swiper
           // install Swiper modules
           modules={[A11y, Autoplay]}
@@ -32,13 +32,16 @@ const Slider = ({ slice }) => {
           slidesPerView={maxSlidesPerView}
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-        loop
-        speed={2000}
+          loop
+          speed={2000}
           autoplay={true}
         >
           {slice.items.map((item, index) => {
             return (
-              <SwiperSlide key={index} className="flex h-full items-center justify-center">
+              <SwiperSlide
+                key={index}
+                className="flex h-full items-center justify-center"
+              >
                 <PrismicNextImage
                   field={item.image.Small}
                   className="rounded-md"

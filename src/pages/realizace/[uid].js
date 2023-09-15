@@ -87,8 +87,8 @@ export default function realizace({
             </div>
           )}
         </div>
-        <div>
-          <LightGallery plugins={[lgZoom]}>
+        <div className=" max-h-[50vh]">
+          <LightGallery plugins={[lgZoom]} elementClassNames="h-full">
             <a href={prismic.asImageSrc(realizace.data.image)}>
               <figure className="h-full">
                 <PrismicNextImage
