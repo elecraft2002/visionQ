@@ -18,6 +18,14 @@ import useWindowSize from "@/functions/useWindowSize";
 const Slider = ({ slice }) => {
   const { width, height } = useWindowSize();
   const maxSlidesPerView = width / 400 > 5 ? 5 : width / 400;
+
+  let array = [];
+  const loop = 10;
+  for (let i = 0; i < slice.items.length * 5; i++) {
+    const element = slice.items[i % slice.items.length];
+    array[i] = element;
+  }
+
   return (
     <section
       data-slice-type={slice.slice_type}
@@ -26,17 +34,17 @@ const Slider = ({ slice }) => {
     >
       <div className="box-border w-full max-w-7xl rounded-md border bg-slate-400/50 p-4">
         <Swiper
-          // install Swiper modules
-          modules={[A11y, Autoplay]}
-          spaceBetween={10}
+          modules={[  A11y, Autoplay]}
+          spaceBetween={50}
           slidesPerView={maxSlidesPerView}
+          speed={2000}
+          loop
+          navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          loop
-          speed={2000}
           autoplay={true}
         >
-          {slice.items.map((item, index) => {
+          {array.map((item, index) => {
             return (
               <SwiperSlide
                 key={index}
